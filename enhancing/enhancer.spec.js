@@ -1,5 +1,5 @@
 const {succeed, fail , repair , get} = require('./enhancer.js');
-// test away!
+
 describe('testing the enhancer module', ()=> {
     describe('testing the .repair', () => {
         it('it should return a new item with 100 durablility', ()=> {
@@ -37,5 +37,15 @@ describe('testing the enhancer module', ()=> {
             expect(fail({name: 'newest item', durability: 90 , enchancement: 18})).toEqual({name: 'newest item', durability: 80 , enchancement: 17});
             expect(fail({name: 'newest item', durability: 90 , enchancement: 19})).toEqual({name: 'newest item', durability: 80 , enchancement: 18});
         });
+    })
+    describe('testing the .get', ()=> {
+        it('if the enhancement level is 0, the the name is not modified.', ()=> {
+            expect(get({name: 'newest item', durability: 90 , enchancement: 0})).toEqual({name: 'newest item', durability: 90 , enchancement: 0});
+        })
+        it('if the enhancement level is greater than 0, change the name to include the enhancement level', ()=> {
+            expect(get({name: 'newest item', durability: 90 , enchancement: 17})).toEqual({name: '[+17] newest item', durability: 90 , enchancement: 17});
+            expect(get({name: 'newest item', durability: 90 , enchancement: 18})).toEqual({name: '[+18] newest item', durability: 90 , enchancement: 18});
+            expect(get({name: 'newest item', durability: 90 , enchancement: 19})).toEqual({name: '[+19] newest item', durability: 90 , enchancement: 19});
+        })
     })
 })

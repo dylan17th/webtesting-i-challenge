@@ -25,5 +25,5 @@ function repair(item) {
 }
 
 function get(item) {
-  return { ...item };
+  return item.enchancement == 0 ? { ...item } : {...item, name: `[+${item.enchancement}] ${item.name}`};
 }
